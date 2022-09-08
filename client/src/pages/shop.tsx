@@ -5,14 +5,14 @@ import { Context } from '..';
 import BrandBar from '../components/BrandBar/BrandBar';
 import DeviceList from '../components/DeviceList/DeviceList';
 import TypeBar from '../components/TypeBar/TypeBar';
-import { getBrands, getDevices, getTypes } from '../http/deviceApi';
+import { getBrands, getDevice, getTypes } from '../http/deviceApi';
 
 const Shop = observer(() => {
   const { device } = useContext(Context);
 
   useEffect(() => {
     getTypes().then((data) => device.setTypes(data));
-    getDevices().then((data) => {
+    getDevice().then((data) => {
       device.setDevices(data);
     });
     getBrands().then((data) => device.setBrands(data));

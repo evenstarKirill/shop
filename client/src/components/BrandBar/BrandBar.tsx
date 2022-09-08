@@ -9,17 +9,18 @@ const BrandBar = observer(() => {
 
   return (
     <ListGroup horizontal className="d-flex flex-row gap-3">
-      {device.brands.map((brand: any) => (
-        <Card
-          style={{ cursor: 'pointer' }}
-          onClick={() => device.setSelectedBrand(brand)}
-          border={brand.id === device.selectedBrand.id ? 'primary' : ''}
-          key={brand.id}
-          className="p-2"
-        >
-          {brand.name}
-        </Card>
-      ))}
+      {device.brands.rows &&
+        device.brands.rows.map((brand: any) => (
+          <Card
+            style={{ cursor: 'pointer' }}
+            onClick={() => device.setSelectedBrand(brand)}
+            border={brand.id === device.selectedBrand.id ? 'primary' : ''}
+            key={brand.id}
+            className="p-2"
+          >
+            {brand.name}
+          </Card>
+        ))}
     </ListGroup>
   );
 });

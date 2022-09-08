@@ -9,8 +9,13 @@ class BrandController {
   }
 
   async getAll(req, res, next) {
+    let { limit, page } = req.query;
+    page = page || 1;
+    limit = limit || 9;
+    let offset = page * limit - limit;
+    let brands;
     try {
-      const brands = await Brand.findAll();
+      brands = await Brand.findAndCountAll({ limit, offset });
       return res.json(brands);
     } catch (error) {
       console.log(error);

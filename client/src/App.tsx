@@ -12,8 +12,6 @@ const App = observer(() => {
   const { user } = useContext(Context);
   const [loading, setLoading] = useState(true);
 
-  console.log('local token', localStorage.getItem('token'));
-
   useEffect(() => {
     checkIsAuth()
       .then(() => {

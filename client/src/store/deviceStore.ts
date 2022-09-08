@@ -1,8 +1,15 @@
 import { makeAutoObservable } from 'mobx';
+import isEqual from 'lodash.isequal';
+import difference from 'lodash.difference';
 
 interface IType {
   id: number | null;
   name: string | null;
+}
+
+interface ITypes {
+  count?: number;
+  rows?: IType[];
 }
 
 interface IBrand {
@@ -10,12 +17,17 @@ interface IBrand {
   name: string | null;
 }
 
+interface IBrands {
+  count?: number;
+  rows?: IBrand[];
+}
+
 interface IDevice {
-  id: number;
-  name: string;
-  price: number;
-  rating: number;
-  img: string;
+  id: number | null;
+  name: string | null;
+  price: number | null;
+  rating: number | null;
+  img: string | null;
 }
 
 interface IDevices {
@@ -24,22 +36,17 @@ interface IDevices {
 }
 
 export default class DeviceStore {
-  _types: IType[] = [];
-  _brands: IBrand[] = [];
-  _devices: IDevices = {};
-  _selectedType: IType = {
-    id: null,
-    name: null,
-  };
-  _selectedBrand: IBrand = {
-    id: null,
-    name: null,
-  };
+  _types: ITypes;
+  _brands: IBrands;
+  _devices: IDevices;
+  _selectedType: IType;
+  _selectedBrand: IBrand;
+  _selectedDevice: IDevice;
 
   constructor() {
-    this._types = [];
+    this._types = {};
 
-    this._brands = [];
+    this._brands = {};
 
     this._devices = {};
 
@@ -53,15 +60,65 @@ export default class DeviceStore {
       name: null,
     };
 
+    this._selectedDevice = {
+      id: null,
+      name: null,
+      price: null,
+      rating: null,
+      img: null,
+    };
+
     makeAutoObservable(this);
   }
 
-  setTypes(types: IType[]) {
-    this._types = types;
+  setTypes(types: ITypes) {
+    if (!this._types.rows) {
+      this._types = types;
+    }
+
+    if (isEqual(this._types, types)) {
+      return;
+    }
+
+    if (
+      difference(this._types as ArrayLike<ITypes>, types as ArrayLike<ITypes>)
+        .length === 0
+    ) {
+      return (this._types = types);
+    }
+
+    this._types = {
+      count: types.count,
+      rows: [
+        ...(this._types.rows as Array<IType>),
+        ...(types.rows as Array<IType>),
+      ],
+    };
   }
 
-  setBrands(brands: IBrand[]) {
-    this._brands = brands;
+  setBrands(brands: IBrands) {
+    if (!this._brands.rows) {
+      this._brands = brands;
+    }
+
+    if (isEqual(this._brands, brands)) {
+      return;
+    }
+
+    if (
+      difference(this._brands as ArrayLike<ITypes>, brands as ArrayLike<ITypes>)
+        .length === 0
+    ) {
+      return (this._brands = brands);
+    }
+
+    this._brands = {
+      count: brands.count,
+      rows: [
+        ...(this._brands.rows as Array<IBrand>),
+        ...(brands.rows as Array<IBrand>),
+      ],
+    };
   }
 
   setDevices(devices: IDevices) {
@@ -74,6 +131,10 @@ export default class DeviceStore {
 
   setSelectedBrand(brand: IBrand) {
     this._selectedBrand = brand;
+  }
+
+  setSelectedDevice(device: IDevice) {
+    this._selectedDevice = device;
   }
 
   get types() {
@@ -94,5 +155,9 @@ export default class DeviceStore {
 
   get selectedBrand() {
     return this._selectedBrand;
+  }
+
+  get selectedDevice() {
+    return this._selectedDevice;
   }
 }

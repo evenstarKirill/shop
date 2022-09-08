@@ -9,11 +9,17 @@ class TypeController {
   }
 
   async getAll(req, res, next) {
+    let { limit, page } = req.query;
+    page = page || 1;
+    limit = limit || 9;
+    let offset = page * limit - limit;
+    let types;
     try {
-      const types = await Type.findAll();
+      types = await Type.findAndCountAll({ limit, offset });
       return res.json(types);
     } catch (error) {
-      next(ApiError.badRequest('docs not found'));
+      console.log(error);
+      next(ApiError.internal(error.message));
     }
   }
 

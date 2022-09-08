@@ -42,12 +42,14 @@ const NavBar = observer(() => {
               >
                 Sign Out
               </Button>
-              <Button
-                onClick={() => navigate(ADMIN_ROUTE)}
-                variant="outline-light m-1"
-              >
-                Admin Page
-              </Button>
+              {location.pathname !== '/admin' && (
+                <Button
+                  onClick={() => navigate(ADMIN_ROUTE)}
+                  variant="outline-light m-1"
+                >
+                  Admin Page
+                </Button>
+              )}
             </>
           )}
           {!isInLogin && !user.isAuth && (
