@@ -1,6 +1,14 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useState } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Overlay,
+  Tooltip,
+} from 'react-bootstrap';
 
 import { Context } from '..';
 import { getTypes, getDevice, getBrands } from '../http/deviceApi';
@@ -49,11 +57,11 @@ const Admin = observer(() => {
     setShow((state: IModalSHow) => ({ ...state, [modal]: !state[modal] }));
 
   useEffect(() => {
-    getTypes(3, 1).then((data) => device.setTypes(data));
+    getTypes().then((data) => device.setTypes(data));
     getDevice().then((data) => {
       device.setDevices(data);
     });
-    getBrands(3, 1).then((data) => device.setBrands(data));
+    getBrands().then((data) => device.setBrands(data));
   }, []);
 
   //TODO: button "show all" - separate component
@@ -68,17 +76,8 @@ const Admin = observer(() => {
               handleShow={() => handleShow(Modals.type)}
             />
             <Form.Label>Types</Form.Label>
-            <Form.Control placeholder="Search..." />
           </Form.Group>
           <AdminTypeBar handleShow={() => handleShow(Modals.editType)} />
-          <Button
-            className="mt-3 mb-3 d-flex w-100 justify-content-center"
-            variant="outline-primary"
-            size="sm"
-            onClick={() => getTypes().then((data) => device.setTypes(data))}
-          >
-            Show all
-          </Button>
           <div className="mt-5">
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <CreateButton
@@ -86,17 +85,8 @@ const Admin = observer(() => {
                 handleShow={() => handleShow(Modals.brand)}
               />
               <Form.Label>Brands</Form.Label>
-              <Form.Control placeholder="Search..." />
             </Form.Group>
             <AdminBrandBar handleShow={() => handleShow(Modals.editBrand)} />
-            <Button
-              className="mt-3 mb-3 d-flex w-100 justify-content-center"
-              variant="outline-primary"
-              size="sm"
-              onClick={() => getBrands().then((data) => device.setBrands(data))}
-            >
-              Show all
-            </Button>
           </div>
         </Col>
         <Col md={9}>
