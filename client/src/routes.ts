@@ -12,7 +12,7 @@ import {
 
 interface IRoute {
   path: string;
-  Component: any;
+  Component: () => JSX.Element;
 }
 
 export const authRoutes: IRoute[] = [

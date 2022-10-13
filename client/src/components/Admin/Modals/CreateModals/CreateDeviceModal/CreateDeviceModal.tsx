@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Button, Dropdown, Form, Modal } from 'react-bootstrap';
 
 import { Context } from '../../../../..';
@@ -7,6 +7,12 @@ import {
   getBrands,
   createDevice,
 } from '../../../../../http/deviceApi';
+import {
+  IBrand,
+  IDevice,
+  IDevices,
+  IType,
+} from '../../../../../Types&Interfaces/Interfaces/Interfaces';
 import ModalWrapper from '../../../ModalWrapper/ModalWrapper';
 
 interface IProps {
@@ -14,16 +20,16 @@ interface IProps {
   handleShow: () => void;
 }
 
-interface IDeviceState {
-  name: string;
-  price: number;
-  file: string | Blob;
-  brandId: string;
-  brandName: string;
-  typeId: string;
-  typeName: string;
-  // info: IDeviceInfo[];
-}
+// interface IDeviceState {
+//   name: string;
+//   price: number;
+//   file: string | Blob;
+//   brandId: string;
+//   brandName: string;
+//   typeId: string;
+//   typeName: string;
+//   // info: IDeviceInfo[];
+// }
 
 // interface IDeviceInfo {
 //   title: string;
@@ -34,16 +40,11 @@ interface IDeviceState {
 const CreateDeviceModal = ({ show, handleShow }: IProps) => {
   const { device } = useContext(Context);
 
-  const [deviceState, setDeviceState] = useState<IDeviceState>({
-    name: '',
-    price: 0,
-    file: '',
-    brandId: '',
-    brandName: '',
-    typeId: '',
-    typeName: '',
-    // info: [],
-  });
+  const [deviceState, setDeviceState] = useState<IDevice>({} as IDevice);
+  console.log(
+    '🚀 ~ file: CreateDeviceModal.tsx ~ line 44 ~ CreateDeviceModal ~ deviceState',
+    deviceState,
+  );
 
   useEffect(() => {
     getTypes().then((data) => device.setTypes(data));
@@ -73,7 +74,7 @@ const CreateDeviceModal = ({ show, handleShow }: IProps) => {
   // };
 
   const selectFile = (e: any) => {
-    setDeviceState((prevValue: any) => ({
+    setDeviceState((prevValue: IDevice) => ({
       ...prevValue,
       file: e.target.files[0],
     }));
@@ -83,11 +84,13 @@ const CreateDeviceModal = ({ show, handleShow }: IProps) => {
     const formData = new FormData();
     formData.append('name', deviceState.name);
     formData.append('price', `${deviceState.price}`);
-    formData.append('img', deviceState.file);
-    formData.append('brandId', deviceState.brandId);
-    formData.append('typeId', deviceState.typeId);
-    // formData.append('info', JSON.stringify(deviceState.info));
-    createDevice(formData).then(() => handleShow());
+    formData.append('img', deviceState.file as string | Blob);
+    formData.append('brandId', String(deviceState.brandId));
+    formData.append('typeId', String(deviceState.typeId));
+
+    createDevice(formData)
+      .then((data) => device.setDevices(data))
+      .then(() => handleShow());
   };
 
   return (
@@ -100,10 +103,10 @@ const CreateDeviceModal = ({ show, handleShow }: IProps) => {
             </Dropdown.Toggle>
             <Dropdown.Menu>
               {device.types.rows &&
-                device.types.rows.map((type: any) => (
+                device.types.rows.map((type: IType) => (
                   <Dropdown.Item
                     onClick={() =>
-                      setDeviceState((prevValue: any) => ({
+                      setDeviceState((prevValue: IDevice) => ({
                         ...prevValue,
                         typeId: type.id,
                         typeName: type.name,
@@ -122,7 +125,7 @@ const CreateDeviceModal = ({ show, handleShow }: IProps) => {
             </Dropdown.Toggle>
             <Dropdown.Menu>
               {device.brands.rows &&
-                device.brands.rows.map((brand: any) => (
+                device.brands.rows.map((brand: IBrand) => (
                   <Dropdown.Item
                     onClick={() =>
                       setDeviceState((prevValue: any) => ({

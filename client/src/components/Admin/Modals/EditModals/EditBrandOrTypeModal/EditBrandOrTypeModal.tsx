@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { Context } from '../../../../..';
 import { editBrand, editType } from '../../../../../http/deviceApi';
@@ -24,14 +24,14 @@ const EditBrandOrTypeModal = observer(({ show, handleShow, name }: IProps) => {
 
   const edit = (name: string) => {
     if (name === 'brand') {
-      editBrand(device.selectedBrand.id, { name: value }).then(() =>
-        setValue(''),
-      );
+      editBrand(device.selectedBrand.id as number, { name: value })
+        .then((data) => device.editBrand(data))
+        .then(() => setValue(''));
     }
     if (name === 'type') {
-      editType(device.selectedType.id, { name: value }).then(() =>
-        setValue(''),
-      );
+      editType(device.selectedType.id as number, { name: value })
+        .then((data) => device.editType(data))
+        .then(() => setValue(''));
     }
     handleShow();
   };

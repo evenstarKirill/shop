@@ -5,7 +5,12 @@ import App from './App';
 import UserStore from './store/userStore';
 import DeviceStore from './store/deviceStore';
 
-export const Context = createContext(null as any);
+type ContextValue = {
+  user: UserStore;
+  device: DeviceStore;
+};
+
+export const Context = createContext<ContextValue>({} as ContextValue);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

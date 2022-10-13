@@ -1,27 +1,21 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  Button,
-  Overlay,
-  Tooltip,
-} from 'react-bootstrap';
+import React, { useContext, useEffect, useState } from 'react';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 
 import { Context } from '..';
-import { getTypes, getDevice, getBrands } from '../http/deviceApi';
+import { getTypes, getDevices, getBrands } from '../http/deviceApi';
 
-import AdminBrandBar from '../components/Admin/AdminBrandBar/AdminBrandBar';
 import CreateButton from '../components/Admin/CreateButton/CreateButton';
 import AdminDeviceList from '../components/Admin/AdminDeviceList/AdminDeviceList';
 import CreateDeviceModal from '../components/Admin/Modals/CreateModals/CreateDeviceModal/CreateDeviceModal';
 import CreateBrandModal from '../components/Admin/Modals/CreateModals/CreateBrandModal/CreateBrandModal';
 import CreateTypeModal from '../components/Admin/Modals/CreateModals/CreateTypeModal/CreateTypeModal';
-import AdminTypeBar from '../components/Admin/AdminTypeBar/AdminTypeBar';
 import EditBrandOrTypeModal from '../components/Admin/Modals/EditModals/EditBrandOrTypeModal/EditBrandOrTypeModal';
 import EditDeviceModal from '../components/Admin/Modals/EditModals/EditDeviceModal/EditDeviceModal';
+import jwtDecode from 'jwt-decode';
+import BrandBar from '../components/BrandBar/BrandBar';
+import TypeBar from '../components/TypeBar/TypeBar';
+import ResetButton from '../components/ResetButton/ResetButton';
 
 interface IModalSHow {
   device: boolean;
@@ -43,6 +37,7 @@ enum Modals {
 
 const Admin = observer(() => {
   const { device } = useContext(Context);
+  const { user } = useContext(Context);
 
   const [show, setShow] = useState<IModalSHow>({
     device: false,
@@ -58,10 +53,15 @@ const Admin = observer(() => {
 
   useEffect(() => {
     getTypes().then((data) => device.setTypes(data));
-    getDevice().then((data) => {
+    getDevices().then((data) => {
       device.setDevices(data);
     });
     getBrands().then((data) => device.setBrands(data));
+
+    const userData = jwtDecode(localStorage.getItem('token') || '');
+
+    user.setUser(userData);
+    user.setIsAuth(true);
   }, []);
 
   //TODO: button "show all" - separate component
@@ -71,13 +71,16 @@ const Admin = observer(() => {
       <Row className="mt-3">
         <Col md={3}>
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <CreateButton
-              name={Modals.type}
-              handleShow={() => handleShow(Modals.type)}
-            />
+            <div className="d-flex flex-row justify-content-between">
+              <CreateButton
+                name={Modals.type}
+                handleShow={() => handleShow(Modals.type)}
+              />
+              <ResetButton />
+            </div>
             <Form.Label>Types</Form.Label>
           </Form.Group>
-          <AdminTypeBar handleShow={() => handleShow(Modals.editType)} />
+          <TypeBar handleShow={() => handleShow(Modals.editType)} />
           <div className="mt-5">
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <CreateButton
@@ -86,7 +89,7 @@ const Admin = observer(() => {
               />
               <Form.Label>Brands</Form.Label>
             </Form.Group>
-            <AdminBrandBar handleShow={() => handleShow(Modals.editBrand)} />
+            <BrandBar handleShow={() => handleShow(Modals.editBrand)} />
           </div>
         </Col>
         <Col md={9}>

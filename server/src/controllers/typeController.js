@@ -11,7 +11,7 @@ class TypeController {
   async getAll(req, res, next) {
     let { limit, page } = req.query;
     page = page || 1;
-    limit = limit || 9;
+    limit = limit || 100;
     let offset = page * limit - limit;
     let types;
     try {
@@ -76,7 +76,7 @@ class TypeController {
         await Type.update({ name: newTypeName }, { where: { id: typeId } })
           .then((result) => console.log(result))
           .catch((err) => next(ApiError.badRequest(err)));
-        return res.json({ message: 'editing success' });
+        return res.json({ name: newTypeName, id: typeId });
       });
     } catch (error) {
       console.log(error);

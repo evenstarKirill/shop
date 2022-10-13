@@ -1,5 +1,10 @@
+import { IDevice } from './../Types&Interfaces/Interfaces/Interfaces';
 import { AxiosRequestConfig } from 'axios';
 import queryString from 'query-string';
+import {
+  IBrand,
+  IFilteredDevices,
+} from '../Types&Interfaces/Interfaces/Interfaces';
 
 import { $authHost, $host } from './index';
 
@@ -17,7 +22,7 @@ export const getTypes = async (
   page?: number,
 ) => {
   const { data } = await $host.get(
-    `api/type/?${queryString.stringify(
+    `api/type/${queryString.stringify(
       {
         page: page,
         limit: limit,
@@ -30,13 +35,16 @@ export const getTypes = async (
   return data;
 };
 
-export const deleteType = async (typeId: string) => {
+export const deleteType = async (typeId: number | null) => {
   const { data } = await $authHost.delete(`api/type/${typeId}`);
 
   return data;
 };
 
-export const editType = async (typeId: string, editedData: any) => {
+export const editType = async (
+  typeId: number,
+  editedData: { name: string },
+) => {
   const { data } = await $authHost.patch(`api/type/${typeId}`, editedData);
 
   return data;
@@ -44,7 +52,7 @@ export const editType = async (typeId: string, editedData: any) => {
 
 //DeviceApi
 
-export const getDevice = async (
+export const getDevices = async (
   id?: AxiosRequestConfig<number> | undefined,
   page?: number,
   brandId?: number,
@@ -67,19 +75,53 @@ export const getDevice = async (
   return data;
 };
 
+export const getOneDevice = async (
+  id?: AxiosRequestConfig<number> | undefined,
+) => {
+  const { data } = await $host.get(`api/device/${id}`);
+
+  return data;
+};
+
+export const getFilteredDevices = async ({
+  page,
+  brandsId,
+  typesId,
+  limit,
+}: IFilteredDevices) => {
+  const { data } = await $host.get(
+    `api/device/filter/${queryString.stringify(
+      {
+        page: page,
+        brandId: brandsId,
+        typeId: typesId,
+        limit: limit,
+      },
+      { skipNull: true, arrayFormat: 'comma' },
+    )}`,
+  );
+
+  return data;
+};
+
 export const createDevice = async (device: any) => {
   const { data } = await $authHost.post('api/device', device);
 
   return data;
 };
 
-export const deleteDevice = async (deviceId: string) => {
+export const deleteDevice = async (deviceId: number | null) => {
   const { data } = await $authHost.delete(`api/device/${deviceId}`);
 
   return data;
 };
 
-export const editDevice = async (deviceId: string, editedData: any) => {
+export const editDevice = async (deviceId: number, editedData: any) => {
+  console.log(
+    '🚀 ~ file: deviceApi.ts ~ line 120 ~ editDevice ~ editedData',
+    editedData,
+  );
+
   const { data } = await $authHost.patch(`api/device/${deviceId}`, editedData);
 
   return data;
@@ -101,19 +143,22 @@ export const getBrands = async (limit?: number, page?: number) => {
   return data;
 };
 
-export const createBrand = async (brand: any) => {
+export const createBrand = async (brand: IBrand) => {
   const { data } = await $authHost.post('api/brand', brand);
 
   return data;
 };
 
-export const deleteBrand = async (brandId: string) => {
+export const deleteBrand = async (brandId: number | null) => {
   const { data } = await $authHost.delete(`api/brand/${brandId}`);
 
   return data;
 };
 
-export const editBrand = async (brandId: string, editedData: any) => {
+export const editBrand = async (
+  brandId: number,
+  editedData: { name: string },
+) => {
   const { data } = await $authHost.patch(`api/brand/${brandId}`, editedData);
 
   return data;

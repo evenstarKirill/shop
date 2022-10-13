@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
+import { Context } from '../../../../..';
 import { createType } from '../../../../../http/deviceApi';
+
 import ModalWrapper from '../../../ModalWrapper/ModalWrapper';
 
 interface IProps {
@@ -11,8 +13,12 @@ interface IProps {
 const CreateTypeModal = ({ show, handleShow }: IProps) => {
   const [value, setValue] = useState<string>('');
 
-  const addType = () => {
-    createType({ name: value }).then(() => setValue(''));
+  const { device } = useContext(Context);
+
+  const addType = async () => {
+    createType({ name: value })
+      .then((data) => device.setTypes(data))
+      .then(() => setValue(''));
     handleShow();
   };
 

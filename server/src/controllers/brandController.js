@@ -11,7 +11,7 @@ class BrandController {
   async getAll(req, res, next) {
     let { limit, page } = req.query;
     page = page || 1;
-    limit = limit || 9;
+    limit = limit || 100;
     let offset = page * limit - limit;
     let brands;
     try {
@@ -74,7 +74,7 @@ class BrandController {
         await Brand.update({ name: req.body.name }, { where: { id: brandId } })
           .then((result) => console.log(result))
           .catch((err) => next(ApiError.badRequest(err)));
-        return res.status(200).json({ message: 'editing success' });
+        return res.status(200).json({ name: req.body.name, id: brandId });
       });
     } catch (error) {
       next(ApiError.badRequest(error.message));

@@ -4,6 +4,7 @@ import { Row } from 'react-bootstrap';
 
 import { Context } from '../..';
 import DeviceItem from '../DeviceItem/DeviceItem';
+import { IDevice } from '../../Types&Interfaces/Interfaces/Interfaces';
 
 const DeviceList = observer(() => {
   const { device } = useContext(Context);
@@ -11,8 +12,8 @@ const DeviceList = observer(() => {
   return (
     <Row className="d-flex align-items-center mt-5">
       {device.devices.rows &&
-        device.devices.rows.map((device: any) => (
-          <DeviceItem key={device.id} device={device} />
+        device.devices.rows.map((item: IDevice) => (
+          <DeviceItem key={item.id} device={item} />
         ))}
     </Row>
   );
