@@ -1,5 +1,5 @@
 # Node artifact files
-# /**/node_modules/
+/**/node_modules/
 dist/
 
 # Log files
@@ -14,7 +14,7 @@ dist/
 
 # JetBrains IDE
 .idea/
-# .vscode/
+.vscode/
 
 # Unit test reports
 TEST*.xml
