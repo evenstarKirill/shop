@@ -13,9 +13,9 @@ import CreateTypeModal from '../components/Admin/Modals/CreateModals/CreateTypeM
 import EditBrandOrTypeModal from '../components/Admin/Modals/EditModals/EditBrandOrTypeModal/EditBrandOrTypeModal';
 import EditDeviceModal from '../components/Admin/Modals/EditModals/EditDeviceModal/EditDeviceModal';
 import jwtDecode from 'jwt-decode';
-import BrandBar from '../components/BrandBar/BrandBar';
-import TypeBar from '../components/TypeBar/TypeBar';
-import ResetButton from '../components/ResetButton/ResetButton';
+import BrandBar from '../components/Common/BrandBar/BrandBar';
+import TypeBar from '../components/Common/TypeBar/TypeBar';
+import ResetButton from '../components/Common/ResetButton/ResetButton';
 
 interface IModalSHow {
   device: boolean;

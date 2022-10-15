@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Row } from 'react-bootstrap';
 
-import { Context } from '../..';
+import { Context } from '../../..';
 import DeviceItem from '../DeviceItem/DeviceItem';
-import { IDevice } from '../../Types&Interfaces/Interfaces/Interfaces';
+import { IDevice } from '../../../Types&Interfaces/Interfaces/Interfaces';
 
 const DeviceList = observer(() => {
   const { device } = useContext(Context);

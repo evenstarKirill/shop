@@ -19,6 +19,7 @@ const AdminDeviceItem = observer(
   ({ deviceProp, handleShow, handleDeleteDevice }: IProps) => {
     const navigate = useNavigate();
     const { device } = useContext(Context);
+    console.log('deviceProp', deviceProp);
 
     return (
       <Col
@@ -46,7 +47,9 @@ const AdminDeviceItem = observer(
           )}
           <Card.Body>
             <Card.Title>{deviceProp.name}</Card.Title>
-            <Card.Text>Users Rating {deviceProp.rating}</Card.Text>
+            <Card.Text>
+              Price <b>{deviceProp.price}</b>
+            </Card.Text>
           </Card.Body>
           <Card.Footer className={styles.footer}>
             <Button

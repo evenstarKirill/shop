@@ -2,10 +2,10 @@ import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Context } from '..';
-import BrandBar from '../components/BrandBar/BrandBar';
-import DeviceList from '../components/DeviceList/DeviceList';
-import ResetButton from '../components/ResetButton/ResetButton';
-import TypeBar from '../components/TypeBar/TypeBar';
+import BrandBar from '../components/Common/BrandBar/BrandBar';
+import DeviceList from '../components/User/DeviceList/DeviceList';
+import ResetButton from '../components/Common/ResetButton/ResetButton';
+import TypeBar from '../components/Common/TypeBar/TypeBar';
 import { getBrands, getDevices, getTypes } from '../http/deviceApi';
 
 const Shop = observer(() => {

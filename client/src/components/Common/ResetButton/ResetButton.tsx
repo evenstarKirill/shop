@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Button } from 'react-bootstrap';
-import { Context } from '../..';
-import { getDevices } from '../../http/deviceApi';
+import { Context } from '../../..';
+import { getDevices } from '../../../http/deviceApi';
 
 const ResetButton = () => {
   const { device } = useContext(Context);

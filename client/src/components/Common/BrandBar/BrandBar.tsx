@@ -2,15 +2,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Button, Form, ListGroup } from 'react-bootstrap';
 
-import { Context } from '../..';
-import { deleteBrand } from '../../http/deviceApi';
+import { Context } from '../../..';
+import { deleteBrand } from '../../../http/deviceApi';
 
-import Delete from '../../assets/icons/Delete';
-import Edit from '../../assets/icons/Edit';
+import Delete from '../../../assets/icons/Delete';
+import Edit from '../../../assets/icons/Edit';
 import CustomCheck from '../CustomCheck/CustomCheck';
 
 import CustomToolTip from '../CustomToolTip/CustomToolTip';
-import { IBrand } from '../../Types&Interfaces/Interfaces/Interfaces';
+import { IBrand } from '../../../Types&Interfaces/Interfaces/Interfaces';
 interface IProps {
   handleShow?: () => void;
 }

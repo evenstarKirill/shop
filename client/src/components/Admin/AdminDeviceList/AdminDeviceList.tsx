@@ -25,7 +25,7 @@ const AdminDeviceList = observer(({ handleShow }: IProps) => {
       return;
     }
     await deleteDevice(id);
-    const objWithIdIndex: number = localDevicesState!.findIndex(
+    const objWithIdIndex: number = localDevicesState.findIndex(
       (obj: IDevice) => obj.id === id,
     );
     localDevicesState?.splice(objWithIdIndex, 1);

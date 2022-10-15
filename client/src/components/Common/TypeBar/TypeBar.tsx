@@ -2,13 +2,13 @@ import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect, useState } from 'react';
 import { ListGroup, Button, Form } from 'react-bootstrap';
 
-import { Context } from '../..';
+import { Context } from '../../..';
 
-import Delete from '../../assets/icons/Delete';
-import Edit from '../../assets/icons/Edit';
+import Delete from '../../../assets/icons/Delete';
+import Edit from '../../../assets/icons/Edit';
 
-import { deleteType } from '../../http/deviceApi';
-import { IType } from '../../Types&Interfaces/Interfaces/Interfaces';
+import { deleteType } from '../../../http/deviceApi';
+import { IType } from '../../../Types&Interfaces/Interfaces/Interfaces';
 import CustomCheck from '../CustomCheck/CustomCheck';
 import CustomToolTip from '../CustomToolTip/CustomToolTip';
 

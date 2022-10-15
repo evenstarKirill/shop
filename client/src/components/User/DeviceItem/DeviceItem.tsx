@@ -2,9 +2,9 @@ import React from 'react';
 import { Card, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-import { IDevice } from '../../Types&Interfaces/Interfaces/Interfaces';
+import { IDevice } from '../../../Types&Interfaces/Interfaces/Interfaces';
 
-import { DEVICE_ROUTE } from '../../utils/constants';
+import { DEVICE_ROUTE } from '../../../utils/constants';
 
 interface IProps {
   device: IDevice;

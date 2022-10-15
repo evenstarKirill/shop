@@ -3,13 +3,13 @@ import { Navbar, Container, Nav, Button } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 
-import { Context } from '../..';
+import { Context } from '../../..';
 import {
   ADMIN_ROUTE,
   LOGIN_ROUTE,
   REGISTRATION_ROUTE,
   SHOP_ROUTE,
-} from '../../utils/constants';
+} from '../../../utils/constants';
 
 const NavBar = observer(() => {
   const navigate = useNavigate();

@@ -5,11 +5,12 @@ import { useParams } from 'react-router-dom';
 
 import { getOneDevice } from '../http/deviceApi';
 import { AxiosRequestConfig } from 'axios';
+import { IDevice } from '../Types&Interfaces/Interfaces/Interfaces';
 
 const Device = observer(() => {
   const { id } = useParams();
 
-  const [device, setDevice] = useState<any>({});
+  const [device, setDevice] = useState<IDevice>({} as IDevice);
 
   useEffect(() => {
     id &&
@@ -25,6 +26,12 @@ const Device = observer(() => {
         height={300}
         src={process.env.REACT_APP_HOST_URL + device.img}
       />
+      <div>
+        Name <b>{device.name}</b>
+      </div>
+      <div>
+        Price <b>{device.price}</b>
+      </div>
     </div>
   );
 });
