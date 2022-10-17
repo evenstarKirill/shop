@@ -19,7 +19,6 @@ const AdminDeviceItem = observer(
   ({ deviceProp, handleShow, handleDeleteDevice }: IProps) => {
     const navigate = useNavigate();
     const { device } = useContext(Context);
-    console.log('deviceProp', deviceProp);
 
     return (
       <Col

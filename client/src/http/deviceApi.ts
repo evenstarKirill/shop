@@ -1,4 +1,4 @@
-import { IDevice } from './../Types&Interfaces/Interfaces/Interfaces';
+import { IDevice, IType } from './../Types&Interfaces/Interfaces/Interfaces';
 import { AxiosRequestConfig } from 'axios';
 import queryString from 'query-string';
 import {
@@ -10,7 +10,7 @@ import { $authHost, $host } from './index';
 
 //TypesApi
 
-export const createType = async (type: any) => {
+export const createType = async (type: IType) => {
   const { data } = await $authHost.post('api/type', type);
 
   return data;
@@ -117,11 +117,6 @@ export const deleteDevice = async (deviceId: number | null) => {
 };
 
 export const editDevice = async (deviceId: number, editedData: any) => {
-  console.log(
-    '🚀 ~ file: deviceApi.ts ~ line 120 ~ editDevice ~ editedData',
-    editedData,
-  );
-
   const { data } = await $authHost.patch(`api/device/${deviceId}`, editedData);
 
   return data;

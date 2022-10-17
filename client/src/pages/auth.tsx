@@ -5,6 +5,10 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { Context } from '..';
 import { login, registration } from '../http/userApi';
 import {
+  IAuth,
+  IAuthResponse,
+} from '../Types&Interfaces/Interfaces/Interfaces';
+import {
   LOGIN_ROUTE,
   REGISTRATION_ROUTE,
   SHOP_ROUTE,
@@ -17,7 +21,7 @@ const Auth = observer(() => {
 
   const { user } = useContext(Context);
 
-  const [inputs, setInputs] = useState({
+  const [inputs, setInputs] = useState<IAuth>({
     email: '',
     password: '',
   });
@@ -33,13 +37,12 @@ const Auth = observer(() => {
 
   const signIn = async () => {
     try {
-      let data: any;
+      let data: IAuthResponse;
       if (isLogin) {
         data = await login(inputs);
       } else {
         data = await registration(inputs);
       }
-      console.log('data', data);
 
       user.setUser(data);
       user.setIsAuth(true);

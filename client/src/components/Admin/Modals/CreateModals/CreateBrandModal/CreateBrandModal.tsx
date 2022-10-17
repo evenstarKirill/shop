@@ -14,7 +14,7 @@ const CreateBrandModal = ({ show, handleShow }: IProps) => {
 
   const { device } = useContext(Context);
 
-  const addBrand = () => {
+  const addBrand = async () => {
     createBrand({ name: value })
       .then((data) => device.setBrands(data))
       .then(() => setValue(''));

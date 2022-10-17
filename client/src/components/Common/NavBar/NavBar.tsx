@@ -10,6 +10,7 @@ import {
   REGISTRATION_ROUTE,
   SHOP_ROUTE,
 } from '../../../utils/constants';
+import { IAuthResponse } from '../../../Types&Interfaces/Interfaces/Interfaces';
 
 const NavBar = observer(() => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const NavBar = observer(() => {
   );
 
   const logOut = () => {
-    user.setUser({});
+    user.setUser({} as IAuthResponse);
     user.setIsAuth(false);
     localStorage.setItem('token', '');
   };

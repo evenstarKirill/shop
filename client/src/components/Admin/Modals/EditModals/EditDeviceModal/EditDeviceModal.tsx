@@ -27,12 +27,6 @@ const EditDeviceModal = observer(({ show, handleShow }: IProps) => {
   const { device } = useContext(Context);
 
   const [deviceState, setDeviceState] = useState<IDevice>({} as IDevice);
-  console.log(
-    '🚀 ~ file: EditDeviceModal.tsx ~ line 30 ~ EditDeviceModal ~ deviceState',
-    deviceState,
-  );
-
-  const [fileSelected, setFileSelected] = useState(false);
 
   useEffect(() => {
     getTypes().then((data: ITypes) => device.setTypes(data));
@@ -60,8 +54,7 @@ const EditDeviceModal = observer(({ show, handleShow }: IProps) => {
   }, [show]);
 
   const selectFile = (e: any) => {
-    // setFileSelected(true);
-    setDeviceState((prevValue: any) => ({
+    setDeviceState((prevValue: IDevice) => ({
       ...prevValue,
       file: e.target.files[0],
     }));
@@ -78,7 +71,6 @@ const EditDeviceModal = observer(({ show, handleShow }: IProps) => {
     editDevice(id, formData)
       .then((data) => {
         device.editDevice(data);
-        console.log('data', data);
       })
       .then(() => handleShow());
   };
@@ -98,7 +90,7 @@ const EditDeviceModal = observer(({ show, handleShow }: IProps) => {
                 device.types.rows.map((type: IType) => (
                   <Dropdown.Item
                     onClick={() =>
-                      setDeviceState((prevValue: any) => ({
+                      setDeviceState((prevValue: IDevice) => ({
                         ...prevValue,
                         typeId: type.id,
                         typeName: type.name,
@@ -119,10 +111,10 @@ const EditDeviceModal = observer(({ show, handleShow }: IProps) => {
             </Dropdown.Toggle>
             <Dropdown.Menu>
               {device.brands.rows &&
-                device.brands.rows.map((brand: any) => (
+                device.brands.rows.map((brand: IBrand) => (
                   <Dropdown.Item
                     onClick={() =>
-                      setDeviceState((prevValue: any) => ({
+                      setDeviceState((prevValue: IDevice) => ({
                         ...prevValue,
                         brandId: brand.id,
                         brandName: brand.name,

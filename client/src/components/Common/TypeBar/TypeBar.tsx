@@ -19,17 +19,21 @@ interface IProps {
 const TypeBar = observer(({ handleShow }: IProps) => {
   const { device } = useContext(Context);
 
-  const [localTypesState, setLocalTypesState] = useState<any>();
+  const [localTypesState, setLocalTypesState] = useState<IType[]>();
 
   const [allCount, setAllCount] = useState(3);
 
   const [show, setShow] = useState(false);
 
-  const [selectedCheckBoxRef, setSelectedCheckBoxRef] = useState<any>(null);
+  const [selectedCheckBoxRef, setSelectedCheckBoxRef] =
+    useState<React.RefObject<HTMLInputElement>>();
 
   const { user } = useContext(Context);
 
-  const handleCheckBoxCLick = (e: any, ref: any) => {
+  const handleCheckBoxCLick = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    ref: React.RefObject<HTMLInputElement>,
+  ) => {
     let updatedList: number[] = [];
     if (e.target.checked && !device.filtered.typesId) {
       updatedList = [Number(e.target.value)];
@@ -50,10 +54,12 @@ const TypeBar = observer(({ handleShow }: IProps) => {
   useEffect(() => {
     setLocalTypesState(device.types.rows);
   }, [device.types.rows]);
+
   const handleDeleteType = async (id: number) => {
-    if (!id) {
+    if (!id || !localTypesState) {
       return;
     }
+
     await deleteType(id);
     const objWithIdIndex: number = localTypesState.findIndex(
       (obj: IType) => obj.id === id,
@@ -89,7 +95,7 @@ const TypeBar = observer(({ handleShow }: IProps) => {
                   <>
                     <Button
                       variant="danger"
-                      onClick={() => handleDeleteType(type.id)}
+                      onClick={() => handleDeleteType(type.id as number)}
                       size="sm"
                     >
                       <Delete />

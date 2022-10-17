@@ -1,5 +1,5 @@
 export interface IType {
-  id: number;
+  id?: number;
   name: string;
   createdAt?: string;
   updatedAt?: string;
@@ -28,8 +28,8 @@ export interface IDevice {
   price: number;
   rating: number;
   img: string;
-  brandId: number;
-  typeId: number;
+  brandId?: number;
+  typeId?: number;
   file?: string | Blob;
   brandName?: string;
   typeName?: string;
@@ -55,4 +55,20 @@ export interface IFilteredDevices {
 export interface IToolkitActive {
   type: boolean;
   brand: boolean;
+}
+
+export interface IAuth {
+  email: string;
+  password: string;
+}
+
+export enum Role {
+  user = 'USER',
+  admin = 'ADMIN',
+}
+
+export interface IAuthResponse {
+  email: string;
+  id: string;
+  role: Role;
 }

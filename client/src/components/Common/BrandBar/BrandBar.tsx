@@ -24,7 +24,8 @@ const BrandBar = observer(({ handleShow }: IProps) => {
 
   const [show, setShow] = useState(false);
 
-  const [selectedCheckBoxRef, setSelectedCheckBoxRef] = useState<any>(null);
+  const [selectedCheckBoxRef, setSelectedCheckBoxRef] =
+    useState<React.RefObject<HTMLInputElement>>();
 
   const [localBrandsState, setLocalBrandsState] = useState<IBrand[]>();
 
@@ -32,7 +33,10 @@ const BrandBar = observer(({ handleShow }: IProps) => {
     setLocalBrandsState(device.brands.rows);
   }, [device.brands.rows]);
 
-  const handleCheckBoxCLick = (e: any, ref: any) => {
+  const handleCheckBoxCLick = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    ref: React.RefObject<HTMLInputElement>,
+  ) => {
     let updatedList: number[] = [];
     if (e.target.checked && !device.filtered.brandsId) {
       updatedList = [Number(e.target.value)];
@@ -55,10 +59,10 @@ const BrandBar = observer(({ handleShow }: IProps) => {
       return;
     }
     await deleteBrand(id);
-    const objWithIdIndex: number = localBrandsState!.findIndex(
+    const objWithIdIndex: number = localBrandsState.findIndex(
       (obj: IBrand) => obj.id === id,
     );
-    localBrandsState?.splice(objWithIdIndex, 1);
+    localBrandsState.splice(objWithIdIndex, 1);
   };
 
   return (

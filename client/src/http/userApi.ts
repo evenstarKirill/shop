@@ -1,8 +1,15 @@
 import jwtDecode from 'jwt-decode';
+import {
+  IAuth,
+  IAuthResponse,
+} from '../Types&Interfaces/Interfaces/Interfaces';
 
 import { $authHost, $host } from './index';
 
-export const registration = async ({ email, password }: any) => {
+export const registration = async ({
+  email,
+  password,
+}: IAuth): Promise<IAuthResponse> => {
   const { data } = await $host.post('api/user/registration', {
     email,
     password,
@@ -13,7 +20,10 @@ export const registration = async ({ email, password }: any) => {
   return jwtDecode(data);
 };
 
-export const login = async ({ email, password }: any) => {
+export const login = async ({
+  email,
+  password,
+}: IAuth): Promise<IAuthResponse> => {
   const { data } = await $host.post('api/user/login', {
     email,
     password,

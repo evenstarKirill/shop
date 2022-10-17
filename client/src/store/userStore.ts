@@ -1,13 +1,9 @@
 import { makeAutoObservable } from 'mobx';
-
-enum User {
-  admin = 'ADMIN',
-  user = 'USER',
-}
+import { Role } from '../Types&Interfaces/Interfaces/Interfaces';
 
 interface IUser {
   id: string;
-  role: User;
+  role: Role;
 }
 
 export default class UserStore {
@@ -15,7 +11,7 @@ export default class UserStore {
   _user: IUser;
   constructor() {
     this._isAuth = false;
-    this._user = { id: '', role: User.user };
+    this._user = { id: '', role: Role.user };
     makeAutoObservable(this);
   }
 
@@ -23,7 +19,7 @@ export default class UserStore {
     this._isAuth = bool;
   }
 
-  setUser(user: any) {
+  setUser(user: IUser) {
     this._user = user;
   }
 
