@@ -110,7 +110,7 @@ export const createDevice = async (device: any) => {
   return data;
 };
 
-export const deleteDevice = async (deviceId: number | null) => {
+export const deleteDevice = async (deviceId: number) => {
   const { data } = await $authHost.delete(`api/device/${deviceId}`);
 
   return data;
