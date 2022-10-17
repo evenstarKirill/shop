@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import { Role } from '../Types&Interfaces/Interfaces/Interfaces';
+import { Role } from '../ts/Interfaces';
 
 interface IUser {
   id: string;

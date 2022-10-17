@@ -16,7 +16,7 @@ import jwtDecode from 'jwt-decode';
 import BrandBar from '../components/Common/BrandBar/BrandBar';
 import TypeBar from '../components/Common/TypeBar/TypeBar';
 import ResetButton from '../components/Common/ResetButton/ResetButton';
-import { IAuthResponse } from '../Types&Interfaces/Interfaces/Interfaces';
+import { IAuthResponse } from '../ts/Interfaces';
 
 interface IModalSHow {
   device: boolean;

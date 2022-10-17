@@ -11,7 +11,7 @@ import {
   IDevice,
   IFiltered,
   IToolkitActive,
-} from '../Types&Interfaces/Interfaces/Interfaces';
+} from '../ts/Interfaces';
 
 export default class DeviceStore {
   _types: ITypes;

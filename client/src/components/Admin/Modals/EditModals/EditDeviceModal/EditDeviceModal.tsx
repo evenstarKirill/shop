@@ -15,7 +15,7 @@ import {
   IDevice,
   IType,
   ITypes,
-} from '../../../../../Types&Interfaces/Interfaces/Interfaces';
+} from '../../../../../ts/Interfaces';
 import ModalWrapper from '../../../ModalWrapper/ModalWrapper';
 
 interface IProps {

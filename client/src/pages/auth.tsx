@@ -7,7 +7,7 @@ import { login, registration } from '../http/userApi';
 import {
   IAuth,
   IAuthResponse,
-} from '../Types&Interfaces/Interfaces/Interfaces';
+} from '../ts/Interfaces';
 import {
   LOGIN_ROUTE,
   REGISTRATION_ROUTE,

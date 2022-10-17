@@ -7,11 +7,7 @@ import {
   getBrands,
   createDevice,
 } from '../../../../../http/deviceApi';
-import {
-  IBrand,
-  IDevice,
-  IType,
-} from '../../../../../Types&Interfaces/Interfaces/Interfaces';
+import { IBrand, IDevice, IType } from '../../../../../ts/Interfaces';
 import ModalWrapper from '../../../ModalWrapper/ModalWrapper';
 
 interface IProps {
@@ -29,10 +25,10 @@ const CreateDeviceModal = ({ show, handleShow }: IProps) => {
     getBrands().then((data) => device.setBrands(data));
   }, []);
 
-  const selectFile = (e: any) => {
+  const selectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDeviceState((prevValue: IDevice) => ({
       ...prevValue,
-      file: e.target.files[0],
+      file: e.target.files![0],
     }));
   };
 

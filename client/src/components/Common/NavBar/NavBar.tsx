@@ -10,7 +10,7 @@ import {
   REGISTRATION_ROUTE,
   SHOP_ROUTE,
 } from '../../../utils/constants';
-import { IAuthResponse } from '../../../Types&Interfaces/Interfaces/Interfaces';
+import { IAuthResponse } from '../../../ts/Interfaces';
 
 const NavBar = observer(() => {
   const navigate = useNavigate();

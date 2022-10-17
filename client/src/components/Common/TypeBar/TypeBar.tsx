@@ -8,7 +8,7 @@ import Delete from '../../../assets/icons/Delete';
 import Edit from '../../../assets/icons/Edit';
 
 import { deleteType } from '../../../http/deviceApi';
-import { IType } from '../../../Types&Interfaces/Interfaces/Interfaces';
+import { IType } from '../../../ts/Interfaces';
 import CustomCheck from '../CustomCheck/CustomCheck';
 import CustomToolTip from '../CustomToolTip/CustomToolTip';
 

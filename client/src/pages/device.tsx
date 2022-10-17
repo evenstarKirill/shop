@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import { getOneDevice } from '../http/deviceApi';
 import { AxiosRequestConfig } from 'axios';
-import { IDevice } from '../Types&Interfaces/Interfaces/Interfaces';
+import { IDevice } from '../ts/Interfaces';
 
 const Device = observer(() => {
   const { id } = useParams();

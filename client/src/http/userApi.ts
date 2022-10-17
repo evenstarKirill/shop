@@ -2,7 +2,7 @@ import jwtDecode from 'jwt-decode';
 import {
   IAuth,
   IAuthResponse,
-} from '../Types&Interfaces/Interfaces/Interfaces';
+} from '../ts/Interfaces';
 
 import { $authHost, $host } from './index';
 

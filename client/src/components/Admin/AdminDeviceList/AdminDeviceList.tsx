@@ -4,7 +4,7 @@ import { Row } from 'react-bootstrap';
 
 import { Context } from '../../..';
 import { deleteDevice } from '../../../http/deviceApi';
-import { IDevice } from '../../../Types&Interfaces/Interfaces/Interfaces';
+import { IDevice } from '../../../ts/Interfaces';
 import AdminDeviceItem from '../AdminDeviceItem/AdminDeviceItem';
 
 interface IProps {

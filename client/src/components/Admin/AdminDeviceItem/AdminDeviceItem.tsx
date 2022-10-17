@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { Card, Col, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { Context } from '../../..';
-import { IDevice } from '../../../Types&Interfaces/Interfaces/Interfaces';
+import { IDevice } from '../../../ts/Interfaces';
 
 import { DEVICE_ROUTE } from '../../../utils/constants';
 

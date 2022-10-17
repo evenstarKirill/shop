@@ -1,10 +1,7 @@
-import { IDevice, IType } from './../Types&Interfaces/Interfaces/Interfaces';
+import { IType } from '../ts/Interfaces';
 import { AxiosRequestConfig } from 'axios';
 import queryString from 'query-string';
-import {
-  IBrand,
-  IFilteredDevices,
-} from '../Types&Interfaces/Interfaces/Interfaces';
+import { IBrand, IFilteredDevices } from '../ts/Interfaces';
 
 import { $authHost, $host } from './index';
 
@@ -16,11 +13,7 @@ export const createType = async (type: IType) => {
   return data;
 };
 
-export const getTypes = async (
-  // type?: AxiosRequestConfig<string> | undefined,
-  limit?: number,
-  page?: number,
-) => {
+export const getTypes = async (limit?: number, page?: number) => {
   const { data } = await $host.get(
     `api/type/${queryString.stringify(
       {
@@ -29,7 +22,6 @@ export const getTypes = async (
       },
       { skipNull: true },
     )}`,
-    // type,
   );
 
   return data;

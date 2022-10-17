@@ -10,7 +10,7 @@ import Edit from '../../../assets/icons/Edit';
 import CustomCheck from '../CustomCheck/CustomCheck';
 
 import CustomToolTip from '../CustomToolTip/CustomToolTip';
-import { IBrand } from '../../../Types&Interfaces/Interfaces/Interfaces';
+import { IBrand } from '../../../ts/Interfaces';
 interface IProps {
   handleShow?: () => void;
 }
