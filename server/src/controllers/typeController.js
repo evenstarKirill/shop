@@ -4,8 +4,12 @@ import ApiError from '../error/ApiError.js';
 class TypeController {
   async create(req, res) {
     const { name } = req.body;
-    const type = await Type.create({ name });
-    return res.json(type);
+    try {
+      const type = await Type.create({ name });
+      return res.json(type);
+    } catch (error) {
+      return next(ApiError.internal(error));
+    }
   }
 
   async getAll(req, res, next) {

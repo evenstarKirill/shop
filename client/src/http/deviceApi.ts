@@ -1,4 +1,4 @@
-import { IType } from '../ts/Interfaces';
+import { ISearchedDevices, IType } from '../ts/Interfaces';
 import { AxiosRequestConfig } from 'axios';
 import queryString from 'query-string';
 import { IBrand, IFilteredDevices } from '../ts/Interfaces';
@@ -92,6 +92,15 @@ export const getFilteredDevices = async ({
       { skipNull: true, arrayFormat: 'comma' },
     )}`,
   );
+
+  return data;
+};
+
+export const getSearchedDevices = async (input: string) => {
+  if (!input) {
+    return;
+  }
+  const { data } = await $host.get(`api/device/search/${input}`);
 
   return data;
 };

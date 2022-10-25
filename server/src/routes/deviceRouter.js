@@ -8,7 +8,9 @@ const deviceRouter = new Router();
 deviceRouter.post('/', checkRole('ADMIN'), DeviceController.create);
 
 deviceRouter.get('/', DeviceController.getAll);
+
 deviceRouter.get('/filter/:id', DeviceController.getFiltered);
+deviceRouter.get('/search/:id', DeviceController.getSearched);
 
 deviceRouter.get('/:id', DeviceController.getOne);
 

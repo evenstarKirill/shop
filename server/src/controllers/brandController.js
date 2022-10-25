@@ -4,8 +4,12 @@ import ApiError from '../error/ApiError.js';
 class BrandController {
   async create(req, res) {
     const { name } = req.body;
-    const brand = await Brand.create({ name });
-    return res.json(brand);
+    try {
+      const brand = await Brand.create({ name });
+      return res.json(brand);
+    } catch (error) {
+      next(ApiError.internal(error));
+    }
   }
 
   async getAll(req, res, next) {

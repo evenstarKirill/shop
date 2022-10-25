@@ -20,7 +20,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
-    "react/no-unescaped-entities": 1,
+    'react/no-unescaped-entities': 1,
     'prettier/prettier': ['warn'],
     indent: [
       'error',

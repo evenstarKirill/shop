@@ -4,10 +4,7 @@ import { Container, Button, Form, Card } from 'react-bootstrap';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { Context } from '..';
 import { login, registration } from '../http/userApi';
-import {
-  IAuth,
-  IAuthResponse,
-} from '../ts/Interfaces';
+import { IAuth, IAuthResponse } from '../ts/Interfaces';
 import {
   LOGIN_ROUTE,
   REGISTRATION_ROUTE,

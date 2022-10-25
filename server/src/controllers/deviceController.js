@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import fs from 'fs';
 import queryString from 'query-string';
+import sequelize from 'sequelize';
 
 import { Device } from '../models/models.js';
 import ApiError from '../error/ApiError.js';
@@ -37,31 +38,35 @@ class DeviceController {
     limit = limit || 9;
     let offset = page * limit - limit;
     let devices;
-    if (!brandId && !typeId) {
-      devices = await Device.findAndCountAll({ limit, offset });
+    try {
+      if (!brandId && !typeId) {
+        devices = await Device.findAndCountAll({ limit, offset });
+      }
+      if (brandId && !typeId) {
+        devices = await Device.findAndCountAll({
+          where: { brandId },
+          limit,
+          offset,
+        });
+      }
+      if (!brandId && typeId) {
+        devices = await Device.findAndCountAll({
+          where: { typeId },
+          limit,
+          offset,
+        });
+      }
+      if (brandId && typeId) {
+        devices = await Device.findAndCountAll({
+          where: { typeId, brandId },
+          limit,
+          offset,
+        });
+      }
+      return res.json(devices);
+    } catch (error) {
+      return next(ApiError.internal(error));
     }
-    if (brandId && !typeId) {
-      devices = await Device.findAndCountAll({
-        where: { brandId },
-        limit,
-        offset,
-      });
-    }
-    if (!brandId && typeId) {
-      devices = await Device.findAndCountAll({
-        where: { typeId },
-        limit,
-        offset,
-      });
-    }
-    if (brandId && typeId) {
-      devices = await Device.findAndCountAll({
-        where: { typeId, brandId },
-        limit,
-        offset,
-      });
-    }
-    return res.json(devices);
   }
 
   async getFiltered(req, res) {
@@ -79,31 +84,63 @@ class DeviceController {
     let offset = page * limit - limit;
     let devices;
 
-    if (!brandId && !typeId) {
-      return;
+    try {
+      if (!brandId && !typeId) {
+        return;
+      }
+      if (brandId && !typeId) {
+        devices = await Device.findAndCountAll({
+          where: { brandId },
+          limit,
+          offset,
+        });
+      }
+      if (!brandId && typeId) {
+        devices = await Device.findAndCountAll({
+          where: { typeId },
+          limit,
+          offset,
+        });
+      }
+      if (brandId && typeId) {
+        devices = await Device.findAndCountAll({
+          where: { typeId, brandId },
+          limit,
+          offset,
+        });
+      }
+      return res.json(devices);
+    } catch (error) {
+      next(ApiError.internal(error));
     }
-    if (brandId && !typeId) {
+  }
+
+  async getSearched(req, res) {
+    let { limit, page } = req.query;
+    const name = req.params.id;
+
+    page = page || 1;
+    limit = limit || 9;
+    let offset = page * limit - limit;
+    let devices;
+
+    try {
       devices = await Device.findAndCountAll({
-        where: { brandId },
+        where: {
+          name: sequelize.where(
+            sequelize.fn('LOWER', sequelize.col('name')),
+            'LIKE',
+            '%' + name + '%'
+          ),
+        },
         limit,
         offset,
       });
+
+      return res.json(devices);
+    } catch (error) {
+      next(ApiError.internal(error));
     }
-    if (!brandId && typeId) {
-      devices = await Device.findAndCountAll({
-        where: { typeId },
-        limit,
-        offset,
-      });
-    }
-    if (brandId && typeId) {
-      devices = await Device.findAndCountAll({
-        where: { typeId, brandId },
-        limit,
-        offset,
-      });
-    }
-    return res.json(devices);
   }
 
   async getOne(req, res, next) {

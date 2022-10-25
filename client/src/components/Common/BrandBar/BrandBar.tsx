@@ -11,6 +11,7 @@ import CustomCheck from '../CustomCheck/CustomCheck';
 
 import CustomToolTip from '../CustomToolTip/CustomToolTip';
 import { IBrand } from '../../../ts/Interfaces';
+
 interface IProps {
   handleShow?: () => void;
 }

@@ -53,10 +53,10 @@ const EditDeviceModal = observer(({ show, handleShow }: IProps) => {
     } as IDevice);
   }, [show]);
 
-  const selectFile = (e: any) => {
+  const selectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDeviceState((prevValue: IDevice) => ({
       ...prevValue,
-      file: e.target.files[0],
+      file: e.target.files![0],
     }));
   };
 
@@ -153,7 +153,7 @@ const EditDeviceModal = observer(({ show, handleShow }: IProps) => {
           <Form.Control
             className="mt-3"
             type="file"
-            onChange={(e: any) => selectFile(e)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => selectFile(e)}
           />
         </Form>
       </Modal.Body>

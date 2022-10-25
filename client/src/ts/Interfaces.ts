@@ -52,6 +52,12 @@ export interface IFilteredDevices {
   limit?: number;
 }
 
+export interface ISearchedDevices {
+  // page: number;
+  input: string | number;
+  // limit: number;
+}
+
 export interface IToolkitActive {
   type: boolean;
   brand: boolean;

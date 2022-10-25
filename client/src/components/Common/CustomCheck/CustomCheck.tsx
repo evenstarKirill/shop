@@ -1,7 +1,12 @@
 import React, { useRef } from 'react';
 import { Form } from 'react-bootstrap';
 
-const CustomCheck = ({ onCheck, value }: any) => {
+interface IProps {
+  onCheck: any;
+  value: any;
+}
+
+const CustomCheck = ({ onCheck, value }: IProps) => {
   const target = useRef(null);
 
   const handleClick = (e: any) => {
