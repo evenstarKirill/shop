@@ -12,7 +12,7 @@ import {
   SHOP_ROUTE,
 } from '../../../utils/constants';
 import { IAuthResponse } from '../../../ts/Interfaces';
-import { getSearchedDevices } from '../../../http/deviceApi';
+import { getDevices, getSearchedDevices } from '../../../http/deviceApi';
 
 const NavBar = observer(() => {
   const navigate = useNavigate();
@@ -20,6 +20,12 @@ const NavBar = observer(() => {
   const { device } = useContext(Context);
 
   const [search, setSearch] = useState<string | number>();
+
+  if (!search) {
+    getDevices().then((data) => {
+      device.setDevices(data, true);
+    });
+  }
 
   const searchCall = (value: string) => {
     getSearchedDevices(String(value)).then((data) =>

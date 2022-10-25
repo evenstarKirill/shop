@@ -117,12 +117,13 @@ class DeviceController {
 
   async getSearched(req, res) {
     let { limit, page } = req.query;
-    const name = req.params.id;
+    const name = req.params.id.toLowerCase();
 
     page = page || 1;
     limit = limit || 9;
     let offset = page * limit - limit;
     let devices;
+    console.log("name", name);
 
     try {
       devices = await Device.findAndCountAll({
@@ -130,7 +131,7 @@ class DeviceController {
           name: sequelize.where(
             sequelize.fn('LOWER', sequelize.col('name')),
             'LIKE',
-            '%' + name + '%'
+            '%' + name  + '%'
           ),
         },
         limit,
